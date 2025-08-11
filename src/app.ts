@@ -15,7 +15,7 @@ const app: Application = express();
 //parsers
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: "https://3dmodels.hice.com.au", credentials: true }));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 // application routes
 app.use("/api/v1", router);
