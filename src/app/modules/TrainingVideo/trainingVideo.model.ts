@@ -21,6 +21,27 @@ const trainingVideoSchema = new Schema<TTrainingVideo>(
   },
 );
 
+trainingVideoSchema.pre("find", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+trainingVideoSchema.pre("findOne", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+trainingVideoSchema.pre("aggregate", function (next) {
+  this.pipeline().unshift({ $match: { isDeleted: { $ne: true } } });
+  next();
+});
+
+trainingVideoSchema.statics.isProductExistsByCodeNumber = async function (
+  title: string,
+) {
+  return await TrainingVideoModel.findOne({ title });
+};
+
 export const TrainingVideoModel = model<TTrainingVideo>(
   "TrainingVideo",
   trainingVideoSchema,
