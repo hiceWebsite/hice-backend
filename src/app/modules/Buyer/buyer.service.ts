@@ -16,7 +16,7 @@ const getAllBuyersFromDB = async (query: Record<string, unknown>) => {
     .paginate()
     .fields();
 
-  const result = await buyerQuery.modelQuery;
+  const result = await buyerQuery.modelQuery.populate("user");
   const meta = await buyerQuery.countTotal();
 
   return {
@@ -26,7 +26,7 @@ const getAllBuyersFromDB = async (query: Record<string, unknown>) => {
 };
 
 const getSingleBuyerFromDB = async (id: string) => {
-  const result = await Buyer.findById(id);
+  const result = await Buyer.findById(id).populate("user");
   return result;
 };
 

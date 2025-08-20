@@ -16,7 +16,7 @@ const getAllAdminsFromDB = async (query: Record<string, unknown>) => {
     .paginate()
     .fields();
 
-  const result = await adminQuery.modelQuery;
+  const result = await adminQuery.modelQuery.populate("user");
   const meta = await adminQuery.countTotal();
 
   return {
@@ -26,7 +26,7 @@ const getAllAdminsFromDB = async (query: Record<string, unknown>) => {
 };
 
 const getSingleAdminFromDB = async (id: string) => {
-  const result = await Admin.findById(id);
+  const result = await Admin.findById(id).populate("user");
   return result;
 };
 
