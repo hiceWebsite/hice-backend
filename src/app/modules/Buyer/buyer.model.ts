@@ -33,10 +33,7 @@ const buyerSchema = new Schema<TBuyer, BuyerModel>(
       required: [true, "Email is required"],
       unique: true,
     },
-    address: {
-      type: String,
-      required: [true, "Address is required"],
-    },
+    address: { type: String, default: "" },
     profileImg: { type: String, default: "" },
     isDeleted: {
       type: Boolean,

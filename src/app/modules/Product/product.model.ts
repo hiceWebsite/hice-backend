@@ -6,7 +6,6 @@ const productSchema = new Schema<TProduct, ProductModel>(
     codeNumber: {
       type: String,
       required: [true, "Code number is required"],
-      unique: true,
       trim: true,
     },
     title: {

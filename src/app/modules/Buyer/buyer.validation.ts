@@ -11,7 +11,7 @@ export const createBuyerValidationSchema = z.object({
     buyer: z.object({
       name: createUserNameValidationSchema,
       email: z.string().email(),
-      address: z.string().min(4),
+      address: z.string().min(4).optional(),
     }),
   }),
 });

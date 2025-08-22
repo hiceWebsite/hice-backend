@@ -9,7 +9,7 @@ export type TBuyer = {
   user: Types.ObjectId;
   name: TUserName;
   email: string;
-  address: string;
+  address?: string;
   profileImg?: string;
   isDeleted: boolean;
 };
