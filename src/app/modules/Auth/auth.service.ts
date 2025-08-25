@@ -67,7 +67,7 @@ const changePassword = async (
   payload: { oldPassword: string; newPassword: string },
 ) => {
   // checking if the user is exist
-  const user = await User.isUserExistsByEmail(userData.email);
+  const user = await User.isUserExistsByEmail(userData.userEmail);
 
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "This user is not found !");
@@ -101,8 +101,7 @@ const changePassword = async (
 
   await User.findOneAndUpdate(
     {
-      email: userData.email,
-      role: userData.role,
+      email: user.email,
     },
     {
       password: newHashedPassword,
@@ -111,7 +110,7 @@ const changePassword = async (
     },
   );
 
-  return null;
+  return User.findOne({ email: userData.userEmail });
 };
 
 const refreshToken = async (token: string) => {
@@ -164,7 +163,6 @@ const refreshToken = async (token: string) => {
 };
 
 const forgetPassword = async (userEmail: string) => {
-  // checking if the user is exist
   const user = await User.isUserExistsByEmail(userEmail);
 
   if (!user) {
@@ -198,8 +196,6 @@ const forgetPassword = async (userEmail: string) => {
   const resetUILink = `${config.reset_pass_ui_link}?email=${user.email}&token=${resetToken} `;
 
   sendEmail(user.email, resetUILink);
-
-  console.log(resetUILink);
 };
 
 const resetPassword = async (
@@ -231,7 +227,6 @@ const resetPassword = async (
   //localhost:3000?id=A-0001&token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJBLTAwMDEiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MDI4NTA2MTcsImV4cCI6MTcwMjg1MTIxN30.-T90nRaz8-KouKki1DkCSMAbsHyb9yDi0djZU3D6QO4
 
   if (payload.email !== decoded.userEmail) {
-    console.log(payload.email, decoded.userEmail);
     throw new AppError(httpStatus.FORBIDDEN, "You are forbidden!");
   }
 
