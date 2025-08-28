@@ -37,7 +37,7 @@ router.get(
 
 router.patch(
   "/:id",
-  auth(USER_ROLE.superAdmin, USER_ROLE.admin),
+  // auth(USER_ROLE.superAdmin, USER_ROLE.admin),
   upload.fields([
     { name: "twoDFile", maxCount: 1 },
     { name: "threeDFile", maxCount: 1 },
