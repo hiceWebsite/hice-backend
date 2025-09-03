@@ -91,10 +91,9 @@ const updateProductIntoDB = async (
     throw new AppError(httpStatus.NOT_FOUND, "Product not found");
   }
 
-  // ✅ If 2D file provided → delete old one from Cloudinary → upload new
+  //If 2D file provided → delete old one from Cloudinary → upload new
   if (files?.twoDFile) {
     if (existingProduct.twoDUrl) {
-      // Extract public_id from the Cloudinary URL
       const oldPublicId = existingProduct.twoDUrl
         .split("/")
         .slice(-1)[0]
@@ -108,7 +107,7 @@ const updateProductIntoDB = async (
     payload.twoDUrl = cloudinaryResult.secure_url;
   }
 
-  // ✅ If 3D file provided → delete old one from Cloudinary → upload new
+  //If 3D file provided → delete old one from Cloudinary → upload new
   if (files?.threeDFile) {
     if (existingProduct.threeDUrl) {
       const oldPublicId = existingProduct.threeDUrl
@@ -128,6 +127,7 @@ const updateProductIntoDB = async (
     new: true,
     runValidators: true,
   });
+
   return result;
 };
 

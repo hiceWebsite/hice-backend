@@ -2,7 +2,7 @@ import config from "../config";
 import { USER_ROLE } from "../modules/user/user.constant";
 import { User } from "../modules/user/user.model";
 const superUser = {
-  email: "mamunbd.contact@gmail.com",
+  email: "monoj@hice.com.au",
   password: config.super_admin_password,
   needsPasswordChange: false,
   role: USER_ROLE.superAdmin,
